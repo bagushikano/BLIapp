@@ -15,18 +15,20 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Nama item belanjaan"
+        android:hint="Pilih barang"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/item_name_text_field"
+            android:id="@+id/item_barang_text_field"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
-            android:imeOptions="actionSearch"
-            android:inputType="text" />
+            android:focusable="true"
+            android:cursorVisible="false"
+            android:focusableInTouchMode="true"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -47,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
-            android:imeOptions="actionSearch"
+            android:imeOptions="actionNext"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,7 +58,6 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"

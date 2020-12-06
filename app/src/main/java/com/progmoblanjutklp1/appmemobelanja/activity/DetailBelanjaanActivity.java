@@ -41,6 +41,11 @@ public class DetailBelanjaanActivity extends AppCompatActivity {
     private String tanggalBelanjaanKey = "tanggalbelanjaan";
     private String idBelanjaanKey = "idbelanjaan";
 
+    private String idItemKey = "iditem";
+    private String idBarangKey = "idbarang";
+    private String keteranganItemKey = "keteranganitem";
+    private String jumlahItemkey = "jumlahitem";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,16 +65,23 @@ public class DetailBelanjaanActivity extends AppCompatActivity {
         belanjaanDescView = findViewById(R.id.detail_belanjaan_desc);;
         belanjaanDateView = findViewById(R.id.detail_belanjaan_tanggal);;
         belanjaanJumlahItemView = findViewById(R.id.detail_belanjaan_jumlah_item);
+        recyclerView = findViewById(R.id.item_list);
+
+        //TODO kalo list kosong show tidak ada barang dalam list barang, silahkan tambahkan barang terlebih dahulu
+        listKosong.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+
 
         itemArrayList = new ArrayList<>();
 
         //test ui aja
+        /*
         itemArrayList.add(new Item(1, 3, "test view item di detail belanjaan", belanjaanId));
         itemArrayList.add(new Item(2, 3, "test view item di detail belanjaan", belanjaanId));
         itemArrayList.add(new Item(3, 3, "test view item di detail belanjaan", belanjaanId));
         itemArrayList.add(new Item(4, 3, "test view item di detail belanjaan", belanjaanId));
         itemArrayList.add(new Item(5, 3, "test view item di detail belanjaan", belanjaanId));
-
+         */
 
         belanjaanNameView.setText(belanjaanName);
         belanjaanDescView.setText(belanjaanDesc);
@@ -77,7 +89,7 @@ public class DetailBelanjaanActivity extends AppCompatActivity {
         belanjaanJumlahItemView.setText(String.format(getResources().getString(R.string.jumlah_item_detail_belanjaan_card), itemArrayList.size()));
 
 
-        recyclerView = findViewById(R.id.item_list);
+
 
         adapterItem = new ItemListAdapter(this, itemArrayList);
         linearLayoutManager = new LinearLayoutManager(this);
@@ -89,6 +101,12 @@ public class DetailBelanjaanActivity extends AppCompatActivity {
                     recyclerView.setVisibility(View.GONE);
                     listKosong.setVisibility(View.VISIBLE);
                 }
+            }
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                recyclerView.setVisibility(View.VISIBLE);
+                listKosong.setVisibility(View.GONE);
             }
         });
         recyclerView.setLayoutManager(linearLayoutManager);

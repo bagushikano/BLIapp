@@ -9,11 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BliApp">
-        <activity android:name=".activity.InputBarangActivity">
-
+        <activity
+            android:name=".activity.BarangSelectionActivity"
+            android:label="Pilih barang">
         </activity>
-        <activity android:name=".activity.HomeActivity">
-
+        <activity
+            android:name=".activity.InputBarangActivity">
+        </activity>
+        <activity
+            android:name=".activity.HomeActivity">
         </activity>
         <activity
             android:name=".activity.InputItemActivity"
@@ -35,7 +39,6 @@
             android:theme="@style/Theme.BliApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

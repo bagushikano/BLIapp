@@ -30,4 +30,5 @@
     <string name="keluar">Keluar</string>
     <string name="made_by_about_activity">Made with ❤ by Kelompok 1 Pemrograman Mobile Lanjut A</string>
     <string name="version_string">Versi %1$s</string>
+    <string name="empty__barang_selection_list">Tidak ada barang dalam daftar barang, silahkan tambahkan barang terlebih dahulu pada daftar barang</string>
 </resources>
