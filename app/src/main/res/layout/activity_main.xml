@@ -6,66 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
-
-    <TextView
-        android:id="@+id/empty_view"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/home_tab_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:visibility="gone"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/list_belanjaan_kosong"
-        android:textColor="@color/primaryDarkColor"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabMode="fixed">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical"
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/belanjaan_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_baseline_shopping_bag_24"
+            android:text="Daftar Belanjaan" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/barang_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_baseline_category_24"
+            android:text="Daftar Barang" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/home_view_pager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/list_belanjaan_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="sans-serif-black"
-            android:gravity="center|center"
-            android:text="Daftar Belanjaan"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/primaryDarkColor"
-            android:visibility="visible" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/belanjaan_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/add_belanjaan_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:layout_marginEnd="41dp"
-        android:layout_marginBottom="49dp"
-        android:text="Belanjaan baru"
-        android:foregroundTint="@color/primaryDarkColor"
-        app:tint="@android:color/white"
-        android:textColor="@color/white"
-        app:iconTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:icon="@android:drawable/ic_input_add" />
+        app:layout_constraintTop_toBottomOf="@+id/home_tab_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

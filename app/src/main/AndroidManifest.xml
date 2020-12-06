@@ -14,12 +14,6 @@
             android:label="Pilih barang">
         </activity>
         <activity
-            android:name=".activity.InputBarangActivity">
-        </activity>
-        <activity
-            android:name=".activity.HomeActivity">
-        </activity>
-        <activity
             android:name=".activity.InputItemActivity"
             android:label="Tambah item baru pada belanjaan">
         </activity>

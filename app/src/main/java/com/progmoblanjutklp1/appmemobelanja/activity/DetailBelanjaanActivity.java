@@ -5,18 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.progmoblanjutklp1.appmemobelanja.R;
 import com.progmoblanjutklp1.appmemobelanja.adapter.ItemListAdapter;
+import com.progmoblanjutklp1.appmemobelanja.model.Belanjaan;
 import com.progmoblanjutklp1.appmemobelanja.model.Item;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DetailBelanjaanActivity extends AppCompatActivity {
     private ArrayList<Item> itemArrayList;
@@ -73,7 +78,7 @@ public class DetailBelanjaanActivity extends AppCompatActivity {
 
 
         itemArrayList = new ArrayList<>();
-
+        // TODO ambil detail belanjaan/item dari database
         //test ui aja
         /*
         itemArrayList.add(new Item(1, 3, "test view item di detail belanjaan", belanjaanId));
@@ -126,6 +131,15 @@ public class DetailBelanjaanActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) { // pake request code 0 untuk input item baru, 1 untuk edit item
+            if (requestCode == 0) {
+                // TODO tambah item baru
+            }
+
+            else if (requestCode == 1) { // pake request code 0 untuk input item baru, 1 untuk edit item
+                // TODO edit item
+            }
+        }
     }
 
     @Override

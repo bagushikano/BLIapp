@@ -3,8 +3,10 @@ package com.progmoblanjutklp1.appmemobelanja.activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 
 import android.app.Activity;
@@ -16,8 +18,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 import com.progmoblanjutklp1.appmemobelanja.R;
 import com.progmoblanjutklp1.appmemobelanja.adapter.BelanjaanListAdapter;
+import com.progmoblanjutklp1.appmemobelanja.adapter.HomeFragmentAdapter;
+import com.progmoblanjutklp1.appmemobelanja.fragment.DaftarBarangFragment;
+import com.progmoblanjutklp1.appmemobelanja.fragment.DaftarBelanjaanFragment;
 import com.progmoblanjutklp1.appmemobelanja.model.Belanjaan;
 
 import java.text.ParseException;
@@ -26,91 +33,46 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<Belanjaan> belanjaanArrayList;
 
-    private BelanjaanListAdapter adapterBelanjaan;
-    private RecyclerView recyclerView;
-    private LinearLayoutManager linearLayoutManager;
+    ViewPager homeViewPager;
+    Fragment fragment1;
+    Fragment fragment2;
 
-    private TextView listKosong;
-
-    private String namaBelanjaanKey = "namabelanjaan";
-    private String deskripsiBelanjaanKey = "descbelanjaan";
-    private String tanggalBelanjaanKey = "tanggalbelanjaan";
-    private String idBelanjaanKey = "idbelanjaan";
-
-    private SimpleDateFormat simpleFormat = new SimpleDateFormat("MM/dd/yyyy");
-    private Date date;
-
-
-    private int countId = 0;
-    // TODO klo dh ada db nya hapus aja ini, di model belanjaan nya kan jg gaperlu id,
-    //  cmn buat test ui aja ini
-
+    private int[] tabIcons = {
+            R.drawable.ic_baseline_shopping_bag_24,
+            R.drawable.ic_baseline_category_24
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listKosong = findViewById(R.id.empty_view);
-        listKosong.setVisibility(View.VISIBLE);
+        TabLayout homeTabLayout = findViewById(R.id.home_tab_bar);
+        TabItem belanjaanTab = findViewById(R.id.belanjaan_tab);
+        TabItem barangTab = findViewById(R.id.barang_tab);
+        ViewPager homeViewPager = findViewById(R.id.home_view_pager);
 
-        belanjaanArrayList = new ArrayList<>();
 
-        recyclerView = findViewById(R.id.belanjaan_list);
+        homeTabLayout.setupWithViewPager(homeViewPager);
 
-//        adapterBelanjaan = new BelanjaanListAdapter(this, belanjaanArrayList);
-//        linearLayoutManager = new LinearLayoutManager(this);
+        HomeFragmentAdapter homeViewPagerAdapter = new HomeFragmentAdapter(getSupportFragmentManager());
+        homeViewPagerAdapter.addFrag(new DaftarBelanjaanFragment(), "Daftar Belanjaan");
+        homeViewPagerAdapter.addFrag(new DaftarBarangFragment(), "Datar Barang");
+        homeViewPager.setAdapter(homeViewPagerAdapter);
 
-//        listKosong.setVisibility(View.VISIBLE);
+        homeTabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        homeTabLayout.getTabAt(1).setIcon(tabIcons[1]);
 
-        adapterBelanjaan.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onItemRangeRemoved(int positionStart, int itemCount) { // ganti pake nge cek ke db nya?
-                super.onItemRangeRemoved(positionStart, itemCount);
-                if (adapterBelanjaan.getItemCount() == 0) {
-                    recyclerView.setVisibility(View.GONE);
-                    listKosong.setVisibility(View.VISIBLE);
-                }
-            }
-        });
+        fragment1 = homeViewPagerAdapter.getItem(0);
+        fragment2 = homeViewPagerAdapter.getItem(1);
 
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapterBelanjaan);
-        adapterBelanjaan.notifyDataSetChanged();
-
-        ExtendedFloatingActionButton fab = findViewById(R.id.add_belanjaan_fab); //fab button utk nambah lokasi
-        fab.setOnClickListener(new View.OnClickListener() { //listener untuk fab buttonnya tiap di klik
-            @Override
-            public void onClick(View view) { //aksi ketika fab buttonnya di klik
-                Intent addBelanjaan = new Intent(getApplicationContext(), InputBelanjaanActivity.class); //pembuatan intent, intent ini gunanya buat jembatan antar activity
-                startActivityForResult(addBelanjaan, 0);
-            }
-        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && requestCode == 0) { // pake request code 0 untuk input belanjaan baru, 1 untuk edit belanjaan
-            if (data.hasExtra(namaBelanjaanKey) && data.hasExtra(deskripsiBelanjaanKey) && data.hasExtra(tanggalBelanjaanKey)) {
-
-                try {
-                    date = new Date(String.valueOf(simpleFormat.parse(data.getExtras().getString(tanggalBelanjaanKey))));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                belanjaanArrayList.add(new Belanjaan(data.getExtras().getString(namaBelanjaanKey), data.getExtras().getString(deskripsiBelanjaanKey), date, date, countId++));
-                adapterBelanjaan.notifyDataSetChanged();
-                recyclerView.setVisibility(View.VISIBLE);
-                listKosong.setVisibility(View.GONE);
-
-                // TODO tambahin magic magic room databasenya gan
-                // TODO aduh date ini bikin pala pusing aja, gatau itu udh bener / blm cara buat datenya wkwkwkwkw, formatyg ta pake mm//dd/yyyy
-            }
-        }
+        fragment1.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

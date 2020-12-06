@@ -23,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
         splashHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent mainActivity = new Intent(getApplicationContext(), HomeActivity.class);
+                Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(mainActivity);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 finish();
