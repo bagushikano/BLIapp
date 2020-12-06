@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.progmoblanjutklp1.appmemobelanja">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.BliApp">
+        <activity android:name=".activity.InputBarangActivity">
+
+        </activity>
+        <activity android:name=".activity.HomeActivity">
+
+        </activity>
+        <activity
+            android:name=".activity.InputItemActivity"
+            android:label="Tambah item baru pada belanjaan">
+        </activity>
+        <activity
+            android:name=".activity.DetailBelanjaanActivity"
+            android:label="Detail daftar belanjaan">
+        </activity>
+        <activity
+            android:name=".activity.InputBelanjaanActivity"
+            android:label="Tambah belanjaan baru" />
+        <activity
+            android:name=".activity.AboutActivity"
+            android:theme="@style/Theme.BliApp.NoActionBar" />
+        <activity
+            android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.BliApp.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.MainActivity" />
+    </application>
+
+</manifest>

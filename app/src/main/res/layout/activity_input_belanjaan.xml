@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.InputBelanjaanActivity">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/belanjaan_name_form"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/belanjaan_name_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/belanjaan_name_text_field"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:imeOptions="actionNext"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/belanjaan_deskripsi_form"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/belanjaan_deskripsi_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/belanjaan_name_form">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/belanjaan_deskripsi_text_field"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:imeOptions="actionNext"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/belanjaan_tanggal_form"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:focusable="false"
+        android:longClickable="false"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:cursorVisible="false"
+        android:focusableInTouchMode="false"
+        android:hint="@string/belanjaan_tanggal_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/belanjaan_deskripsi_form">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/belanjaan_tanggal_text_field"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:focusable="true"
+            android:cursorVisible="false"
+            android:focusableInTouchMode="true"
+            android:inputType="date" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/belanjaan_add"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/primaryDarkColor"
+        android:text="@string/belanjaan_add_button"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/belanjaan_tanggal_form"
+        app:layout_constraintTop_toBottomOf="@+id/belanjaan_tanggal_form" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

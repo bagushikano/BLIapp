@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">BLIapp</string>
+    <string name="belanjaan_name_hint">Nama belanjaan</string>
+    <string name="belanjaan_add_button">Tambahkan belanjaan</string>
+    <string name="update_belanjaan_title">Edit belanjaan</string>
+    <string name="list_belanjaan_kosong">Tidak ada daftar belanjaan</string>
+    <string name="belanjaan_deskripsi_hint">Deskripsi belanjaan</string>
+    <string name="belanjaan_tanggal_hint">Pilih tanggal belanjaan (mm/dd/yyyy)</string>
+    <string name="delete_belanjaan_dialog_title">Hapus belanjaan dalam list</string>
+    <string name="delete_belanjaan_dialog_message">Yakin ingin menghapus belanjaan %1$s dari list?</string>
+    <string name="belanjaan_insert_toast">Belanjaan %1$s berhasil di tambahkan ke dalam list</string>
+    <string name="belanjaan_edit_toast">Belanjaan %1$s berhasil di edit</string>
+    <string name="jumlah_item_detail_belanjaan_card">Jumlah item: %1$d</string>
+
+    <string name="delete_item_dialog_title">Hapus item dalam list belanjaan</string>
+    <string name="delete_item_dialog_message">Yakin ingin menghapus item %1$s dari belanjaan?</string>
+    <string name="list_item_kosong">Tidak ada item dalam belanjaan</string>
+    <string name="jumlah_item_card">Jumlah: %1$d</string>
+
+    <string name="delete_barang_dialog_title">Hapus barang dalam list barang</string>
+    <string name="delete_barang_dialog_message">Yakin ingin menghapus barang %1$s dari list barang?</string>
+    <string name="edit_barang_title">Edit barang</string>
+
+    <string name="delete_dialog_positive">Ya</string>
+    <string name="delete_dialog_negative">Tidak</string>
+    <string name="simpan_button">Simpan</string>
+    <string name="batal_button">Batal</string>
+
+    <string name="about">Tentang</string>
+    <string name="keluar">Keluar</string>
+    <string name="made_by_about_activity">Made with ❤ by Kelompok 1 Pemrograman Mobile Lanjut A</string>
+    <string name="version_string">Versi %1$s</string>
+</resources>
