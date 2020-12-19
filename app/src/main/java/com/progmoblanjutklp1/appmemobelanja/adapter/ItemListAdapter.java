@@ -1,7 +1,9 @@
 package com.progmoblanjutklp1.appmemobelanja.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.progmoblanjutklp1.appmemobelanja.R;
+import com.progmoblanjutklp1.appmemobelanja.activity.InputItemActivity;
 import com.progmoblanjutklp1.appmemobelanja.model.Item;
 import com.progmoblanjutklp1.appmemobelanja.model.ItemWithBarang;
+import com.progmoblanjutklp1.appmemobelanja.viewmodel.BarangViewModel;
 import com.progmoblanjutklp1.appmemobelanja.viewmodel.ItemViewModel;
 
 import java.util.ArrayList;
@@ -29,21 +33,20 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
     private int position;
     private ItemViewModel itemViewModel;
     private String TAG = "DETAIL_BELANJAA";
+    private String idItemKey = "iditem";
+    private String idBarangKey = "idbarang";
+    private String idBelanjaan = "idBelanjaan";
+    private String keteranganItemKey = "keteranganitem";
+    private String jumlahItemkey = "jumlahitem";
 
-    public ItemListAdapter(Context context) {
+    public ItemListAdapter(Context context, ItemViewModel itemViewModel) {
         this.context = context;
+        this.itemViewModel = itemViewModel;
     }
 
     public void setItemArrayList(ArrayList<ItemWithBarang> itemArrayList) {
         this.itemArrayList.clear();
         this.itemArrayList.addAll(itemArrayList);
-//        this.itemList = new ArrayList<>();
-//        for (int i = 0; i < this.itemArrayList.size() ; i++) {
-//            Item item1 = new Item();
-//            item1.setId(this.itemArrayList.get(i).items.getId());
-//        }
-//        this.itemList.add(this.itemArrayList.get(0).items);
-//        this.itemList.add(this.itemArrayList.get(1).items);
         Log.d(TAG, "setItemArrayList: "+ Arrays.toString(new Item[]{this.itemArrayList.get(0).items}));
         notifyDataSetChanged();
     }
@@ -64,7 +67,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-      viewHolder.namaItemView.setText(String.valueOf(itemList.get(position).getIdBarang())); // TODO ini gimana sih ntar nyari nama bendanya?, sementara ta tampilin id beda aja
+        viewHolder.namaItemView.setText(String.valueOf(itemList.get(position).getIdBarang())); // TODO ini gimana sih ntar nyari nama bendanya?, sementara ta tampilin id beda aja
         viewHolder.jumlahItemView.setText(String.format(viewHolder.itemView.getResources().getString(R.string.jumlah_item_card), itemList.get(position).getJumlah()));
         viewHolder.keteranganItemView.setText(itemList.get(position).getKeterangan());
     }
@@ -93,6 +96,15 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     // TODO edit item nya belum bro
+                    position = getAdapterPosition();
+                    Item item = itemList.get(position);
+                    Intent editIntent = new Intent(context, InputItemActivity.class);
+                    editIntent.putExtra(idItemKey, item.getId());
+                    editIntent.putExtra(keteranganItemKey, item.getKeterangan());
+                    editIntent.putExtra(jumlahItemkey,item.getJumlah());
+                    editIntent.putExtra(idBarangKey, item.getIdBarang());
+                    editIntent.putExtra(idBelanjaan, item.getIdBelanjaan());
+                    ((Activity)context).startActivityForResult(editIntent,1);
                 }
             });
 
@@ -103,15 +115,15 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
                     // TODO masukkin magic magic room nya gan
                     // TODO ini gimana sih ntar nyari nama bendanya?, sementara ta tampilin id beda aja
                     position = getAdapterPosition();
-                    ItemWithBarang itemPosition = itemArrayList.get(position);
+                    final Item itemPosition = itemList.get(position);
                     new MaterialAlertDialogBuilder(context)
                             .setTitle(R.string.delete_item_dialog_title)
-                            .setMessage(String.format(context.getResources().getString(R.string.delete_item_dialog_message) , String.valueOf(itemPosition.items.getId())))
+                            .setMessage(String.format(context.getResources().getString(R.string.delete_item_dialog_message) , String.valueOf(itemPosition.getIdBarang())))
                             .setPositiveButton(R.string.delete_dialog_positive, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.dismiss();
-                                    itemArrayList.remove(position);
+                                    itemViewModel.delete(itemPosition);
                                     notifyItemRemoved(position);
                                     notifyItemRangeChanged(position, itemArrayList.size());
                                 }

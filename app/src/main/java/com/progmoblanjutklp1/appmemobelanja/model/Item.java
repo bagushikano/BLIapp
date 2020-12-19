@@ -28,9 +28,6 @@ public class Item {
         this.idBarang = idBarang;
     }
 
-    public Item(){
-
-    }
 
     public String getKeterangan() {
         return keterangan;

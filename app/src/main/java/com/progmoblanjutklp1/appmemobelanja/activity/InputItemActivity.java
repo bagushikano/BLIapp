@@ -2,6 +2,8 @@ package com.progmoblanjutklp1.appmemobelanja.activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,10 +15,13 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.progmoblanjutklp1.appmemobelanja.R;
+import com.progmoblanjutklp1.appmemobelanja.model.Barang;
 import com.progmoblanjutklp1.appmemobelanja.model.Belanjaan;
+import com.progmoblanjutklp1.appmemobelanja.viewmodel.BarangViewModel;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 public class InputItemActivity extends AppCompatActivity {
 
@@ -24,6 +29,7 @@ public class InputItemActivity extends AppCompatActivity {
     private TextInputEditText keteranganItem;
     private TextInputEditText jumlahItem;
     private Button tambahItemButton;
+    private BarangViewModel barangViewModel;
     private String TAG="INPUT_BARANG_BELANJAAN";
 
     private String idItemKey = "iditem";
@@ -31,6 +37,7 @@ public class InputItemActivity extends AppCompatActivity {
     private String namaBarang = "namaBarang";
     private String keteranganItemKey = "keteranganitem";
     private String jumlahItemkey = "jumlahitem";
+    private String idBelanjaan = "idBelanjaan";
     private int barangID;
 
     @Override
@@ -38,17 +45,27 @@ public class InputItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_item);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
 
         barangItem = findViewById(R.id.item_barang_text_field);
         keteranganItem = findViewById(R.id.item_desc_text_field);
         jumlahItem = findViewById(R.id.item_jumlah_text_field);
         tambahItemButton = findViewById(R.id.item_add_button);
 
+        barangViewModel = ViewModelProviders.of(this).get(BarangViewModel.class);
+
         if (intent.hasExtra(idItemKey) && intent.hasExtra(idBarangKey) &&
                 intent.hasExtra(keteranganItemKey) && intent.hasExtra(jumlahItemkey)) {
 
             // TODO ni aku gatau gmn caranya nge set barang ke field nya buat editnya wkwkwkw
+            int id = intent.getExtras().getInt(idBarangKey);
+            barangViewModel.getOnlyBarang(id).observe(this, new Observer<List<Barang>>() {
+                @Override
+                public void onChanged(List<Barang> barangs) {
+                    barangID = barangs.get(0).getId();
+                    barangItem.setText(barangs.get(0).getNamaBarang());
+                }
+            });
 
             keteranganItem.setText(intent.getExtras().getString(keteranganItemKey));
             jumlahItem.setText(intent.getExtras().getString(jumlahItemkey));
@@ -78,6 +95,9 @@ public class InputItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent item = new Intent();
+                if (intent.hasExtra(idItemKey)){
+                    item.putExtra(idItemKey,intent.getExtras().getInt(idItemKey));
+                }
                 item.putExtra(idBarangKey,barangID);
                 item.putExtra(keteranganItemKey, keteranganItem.getText().toString());
                 item.putExtra(jumlahItemkey, Integer.parseInt(jumlahItem.getText().toString()));
@@ -90,7 +110,7 @@ public class InputItemActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) { // pake request code 0 untuk input belanjaan baru, 1 untuk edit belanjaan
+        if (resultCode == Activity.RESULT_OK) { // pake request code 0 untuk input belanjaan baru,
             if (requestCode == 0) {
                 if (data.hasExtra(idBarangKey)) {
                     //TODO set barangnya disini ke text field nya
@@ -99,6 +119,8 @@ public class InputItemActivity extends AppCompatActivity {
                     barangItem.setText(namabarang);
                     Log.d(TAG, "idBarang Key: "+idBarangKey);
                 }
+            }else if(requestCode == 1){//1 untuk edit belanjaan
+
             }
         }
     }

@@ -22,6 +22,7 @@ import com.progmoblanjutklp1.appmemobelanja.adapter.ItemListAdapter;
 import com.progmoblanjutklp1.appmemobelanja.model.Belanjaan;
 import com.progmoblanjutklp1.appmemobelanja.model.Item;
 import com.progmoblanjutklp1.appmemobelanja.model.ItemWithBarang;
+import com.progmoblanjutklp1.appmemobelanja.viewmodel.BarangViewModel;
 import com.progmoblanjutklp1.appmemobelanja.viewmodel.ItemViewModel;
 
 import java.text.ParseException;
@@ -38,6 +39,7 @@ public class DetailBelanjaanActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
 
     private ItemViewModel itemViewModel;
+    private BarangViewModel barangViewModel;
     private String TAG = "DETAIL_BELANJAA";
 
     private TextView listKosong;
@@ -69,6 +71,7 @@ public class DetailBelanjaanActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras(); //ini di pake buat nangkep data yang di dapet dari activity yang manggil activity ini
         itemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
+        barangViewModel = ViewModelProviders.of(this).get(BarangViewModel.class);
 
         belanjaanName = extras.getString(namaBelanjaanKey);
         belanjaanDesc = extras.getString(deskripsiBelanjaanKey);
@@ -104,7 +107,7 @@ public class DetailBelanjaanActivity extends AppCompatActivity {
         belanjaanDescView.setText(belanjaanDesc);
         belanjaanDateView.setText(belanjaanDate);
         belanjaanJumlahItemView.setText(String.format(getResources().getString(R.string.jumlah_item_detail_belanjaan_card), itemArrayList.size()));
-        adapterItem = new ItemListAdapter(this);
+        adapterItem = new ItemListAdapter(this,itemViewModel);
         adapterItem.notifyDataSetChanged();
         getData();
 
@@ -158,11 +161,12 @@ public class DetailBelanjaanActivity extends AppCompatActivity {
 
             else if (requestCode == 1) { //  1 untuk edit item
                 // TODO edit item
-                if(data.hasExtra(idBarangKey) && data.hasExtra(keteranganItemKey) && data.hasExtra(jumlahItemkey)){
+                if(data.hasExtra(idItemKey) &&data.hasExtra(idBarangKey) && data.hasExtra(keteranganItemKey) && data.hasExtra(jumlahItemkey)){
                     Item item = new Item(data.getExtras().getInt(jumlahItemkey),data.getExtras().getString(keteranganItemKey),belanjaanId ,data.getExtras().getInt(idBarangKey));
+                    item.setId(data.getExtras().getInt(idItemKey));
                     adapterItem.notifyDataSetChanged();
                     getData();
-                    itemViewModel.insert(item);
+                    itemViewModel.update(item);
                     adapterItem.notifyDataSetChanged();
                 }
             }

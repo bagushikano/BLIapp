@@ -68,4 +68,7 @@ public interface BelanjaDAO {
     @Query("Select * from Item where idBelanjaan = :idBelanjaan")
     LiveData<List<Item>> getJustItems(int idBelanjaan);
 
+    @Transaction
+    @Query("Select * from Barang where id = :id")
+    LiveData<List<Barang>> getOnlyItem(int id);
 }

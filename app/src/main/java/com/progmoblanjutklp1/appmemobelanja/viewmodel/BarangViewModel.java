@@ -26,6 +26,11 @@ public class BarangViewModel extends AndroidViewModel {
         return barangs;
     }
 
+    public LiveData<List<Barang>> getOnlyBarang(int id){
+        LiveData<List<Barang>> barang = repository.getOnlyItem(id);
+        return barang;
+    }
+
     public void insert(Barang barang){
         repository.insert(barang);
     }
