@@ -2,6 +2,7 @@ package com.progmoblanjutklp1.appmemobelanja.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +15,43 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.progmoblanjutklp1.appmemobelanja.R;
 import com.progmoblanjutklp1.appmemobelanja.model.Item;
+import com.progmoblanjutklp1.appmemobelanja.model.ItemWithBarang;
+import com.progmoblanjutklp1.appmemobelanja.viewmodel.ItemViewModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHolder> {
 
     private Context context;
-    private ArrayList<Item> itemArrayList;
+    private ArrayList<ItemWithBarang> itemArrayList = new ArrayList<>();
+    private ArrayList<Item> itemList = new ArrayList<>();
     private int position;
+    private ItemViewModel itemViewModel;
+    private String TAG = "DETAIL_BELANJAA";
 
-    public ItemListAdapter(Context context, ArrayList<Item> itemArrayList) {
+    public ItemListAdapter(Context context) {
         this.context = context;
-        this.itemArrayList = itemArrayList;
+    }
+
+    public void setItemArrayList(ArrayList<ItemWithBarang> itemArrayList) {
+        this.itemArrayList.clear();
+        this.itemArrayList.addAll(itemArrayList);
+//        this.itemList = new ArrayList<>();
+//        for (int i = 0; i < this.itemArrayList.size() ; i++) {
+//            Item item1 = new Item();
+//            item1.setId(this.itemArrayList.get(i).items.getId());
+//        }
+//        this.itemList.add(this.itemArrayList.get(0).items);
+//        this.itemList.add(this.itemArrayList.get(1).items);
+        Log.d(TAG, "setItemArrayList: "+ Arrays.toString(new Item[]{this.itemArrayList.get(0).items}));
+        notifyDataSetChanged();
+    }
+
+    public void setItemList(ArrayList<Item> itemList) {
+        this.itemList.clear();
+        this.itemList.addAll(itemList);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -38,14 +64,14 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        viewHolder.namaItemView.setText(String.valueOf(itemArrayList.get(position).getIdBenda())); // TODO ini gimana sih ntar nyari nama bendanya?, sementara ta tampilin id beda aja
-        viewHolder.jumlahItemView.setText(String.format(viewHolder.itemView.getResources().getString(R.string.jumlah_item_card), itemArrayList.get(position).getJumlah()));
-        viewHolder.keteranganItemView.setText(itemArrayList.get(position).getKeterangan());
+      viewHolder.namaItemView.setText(String.valueOf(itemList.get(position).getIdBarang())); // TODO ini gimana sih ntar nyari nama bendanya?, sementara ta tampilin id beda aja
+        viewHolder.jumlahItemView.setText(String.format(viewHolder.itemView.getResources().getString(R.string.jumlah_item_card), itemList.get(position).getJumlah()));
+        viewHolder.keteranganItemView.setText(itemList.get(position).getKeterangan());
     }
 
     @Override
     public int getItemCount() {
-        return itemArrayList.size();
+        return itemList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -77,10 +103,10 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
                     // TODO masukkin magic magic room nya gan
                     // TODO ini gimana sih ntar nyari nama bendanya?, sementara ta tampilin id beda aja
                     position = getAdapterPosition();
-                    Item itemPosition = itemArrayList.get(position);
+                    ItemWithBarang itemPosition = itemArrayList.get(position);
                     new MaterialAlertDialogBuilder(context)
                             .setTitle(R.string.delete_item_dialog_title)
-                            .setMessage(String.format(context.getResources().getString(R.string.delete_item_dialog_message) , String.valueOf(itemPosition.getIdBenda())))
+                            .setMessage(String.format(context.getResources().getString(R.string.delete_item_dialog_message) , String.valueOf(itemPosition.items.getId())))
                             .setPositiveButton(R.string.delete_dialog_positive, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {

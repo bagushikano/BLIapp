@@ -18,15 +18,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.progmoblanjutklp1.appmemobelanja.activity.InputBelanjaanActivity;
 import com.progmoblanjutklp1.appmemobelanja.model.Belanjaan;
 import com.progmoblanjutklp1.appmemobelanja.activity.DetailBelanjaanActivity;
+import com.progmoblanjutklp1.appmemobelanja.viewmodel.BelanjaViewModel;
 
 import java.util.ArrayList;
 
 public class BelanjaanListAdapter extends RecyclerView.Adapter<BelanjaanListAdapter.ViewHolder> {
 
     private Context context;
-    private ArrayList<Belanjaan> belanjaanArrayList;
+    private ArrayList<Belanjaan> belanjaanArrayList = new ArrayList<>();
     private int position;
-
+    private BelanjaViewModel belanjaViewModel;
     private String namaBelanjaanKey = "namabelanjaan";
     private String deskripsiBelanjaanKey = "descbelanjaan";
     private String tanggalBelanjaanKey = "tanggalbelanjaan";
@@ -34,9 +35,19 @@ public class BelanjaanListAdapter extends RecyclerView.Adapter<BelanjaanListAdap
 
 //    private androidx.fragment.app.Fragment fragment;
 
-    public BelanjaanListAdapter(Context context, ArrayList<Belanjaan> belanjaanArrayList) {
+    public BelanjaanListAdapter(Context context, BelanjaViewModel belanjaViewModel) {
         this.context = context;
-        this.belanjaanArrayList = belanjaanArrayList;
+        this.belanjaViewModel = belanjaViewModel;
+    }
+
+    public ArrayList<Belanjaan> getBelanjaanArrayList() {
+        return belanjaanArrayList;
+    }
+
+    public void setBelanjaanArrayList(ArrayList<Belanjaan> belanjaanArrayList) {
+        this.belanjaanArrayList.clear();
+        this.belanjaanArrayList.addAll(belanjaanArrayList);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -83,7 +94,7 @@ public class BelanjaanListAdapter extends RecyclerView.Adapter<BelanjaanListAdap
                     editBelanjaan.putExtra(namaBelanjaanKey, belanjaanPosition.getNamaBelanjaan());
                     editBelanjaan.putExtra(deskripsiBelanjaanKey, belanjaanPosition.getDeskripsiBelanjaan());
                     editBelanjaan.putExtra(tanggalBelanjaanKey, belanjaanPosition.getTanggalBelanjaan());
-                    editBelanjaan.putExtra(idBelanjaanKey, belanjaanPosition.getIdBelanjaan()); //nanti ganti ini gan
+                    editBelanjaan.putExtra(idBelanjaanKey, belanjaanPosition.getId()); //nanti ganti ini gan
                     ((Activity) context).startActivityForResult(editBelanjaan, 1); // Request code 1 untuk edit data belanjaan
 
                 }
@@ -97,6 +108,7 @@ public class BelanjaanListAdapter extends RecyclerView.Adapter<BelanjaanListAdap
 
                     //TODO masukkin ntar magic magic db room nya gan
 
+
                     new MaterialAlertDialogBuilder(context)
                             .setTitle(R.string.delete_belanjaan_dialog_title)
                             .setMessage(String.format(context.getResources().getString(R.string.delete_belanjaan_dialog_message) , belanjaanPosition.getNamaBelanjaan()))
@@ -104,7 +116,8 @@ public class BelanjaanListAdapter extends RecyclerView.Adapter<BelanjaanListAdap
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.dismiss();
-                                    belanjaanArrayList.remove(position);
+                                    Belanjaan belanjaanPosition = belanjaanArrayList.get(position);
+                                    belanjaViewModel.delete(belanjaanPosition);
                                     notifyItemRemoved(position);
                                     notifyItemRangeChanged(position, belanjaanArrayList.size());
                                 }
@@ -131,7 +144,7 @@ public class BelanjaanListAdapter extends RecyclerView.Adapter<BelanjaanListAdap
                     detailBelanjaan.putExtra(namaBelanjaanKey, belanjaanPosition.getNamaBelanjaan());
                     detailBelanjaan.putExtra(deskripsiBelanjaanKey, belanjaanPosition.getDeskripsiBelanjaan());
                     detailBelanjaan.putExtra(tanggalBelanjaanKey, belanjaanPosition.getTanggalBelanjaan());
-                    detailBelanjaan.putExtra(idBelanjaanKey, belanjaanPosition.getIdBelanjaan()); //nanti ganti ini gan
+                    detailBelanjaan.putExtra(idBelanjaanKey, belanjaanPosition.getId()); //nanti ganti ini gan
 
                     context.startActivity(detailBelanjaan);
                 }

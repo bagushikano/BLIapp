@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,8 +25,10 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.progmoblanjutklp1.appmemobelanja.R;
 import com.progmoblanjutklp1.appmemobelanja.adapter.BarangListAdapter;
 import com.progmoblanjutklp1.appmemobelanja.model.Barang;
+import com.progmoblanjutklp1.appmemobelanja.viewmodel.BarangViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class DaftarBarangFragment extends Fragment {
@@ -34,6 +38,7 @@ public class DaftarBarangFragment extends Fragment {
     private BarangListAdapter adapterBarang;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
+    private BarangViewModel viewModel;
 
     private TextView listKosong;
 
@@ -52,20 +57,24 @@ public class DaftarBarangFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewModel = ViewModelProviders.of(this).get(BarangViewModel.class);
+        barangArrayList = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        barangArrayList = new ArrayList<>();
+
 
         v = inflater.inflate(R.layout.fragment_daftar_barang, container, false);
         listKosong = v.findViewById(R.id.empty_barang_view);
         listKosong.setVisibility(View.VISIBLE);
         recyclerView = v.findViewById(R.id.barang_list_view);
 
-        adapterBarang = new BarangListAdapter(this.getActivity(), barangArrayList);
+        adapterBarang = new BarangListAdapter(this.getActivity(), viewModel);
+        adapterBarang.notifyDataSetChanged();
+        getData();
         linearLayoutManager = new LinearLayoutManager(this.getActivity());
 
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -104,7 +113,8 @@ public class DaftarBarangFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.dismiss();
-                                barangArrayList.add(new Barang(namaBarangInput.getText().toString(), 2));
+                                viewModel.insert(new Barang( namaBarangInput.getText().toString()));
+                                getData();
                                 adapterBarang.notifyDataSetChanged();
 
                             }
@@ -147,5 +157,18 @@ public class DaftarBarangFragment extends Fragment {
             }
         });
         return v;
+    }
+
+    private void getData(){
+        viewModel.getBarangs().observe(getViewLifecycleOwner(), new Observer<List<Barang>>() {
+            @Override
+            public void onChanged(List<Barang> barangs) {
+                if (barangs != null){
+                    barangArrayList.clear();
+                    barangArrayList.addAll(barangs);
+                    adapterBarang.setBarangArrayList(barangArrayList);
+                }
+            }
+        });
     }
 }

@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,20 +23,23 @@ import com.progmoblanjutklp1.appmemobelanja.R;
 import com.progmoblanjutklp1.appmemobelanja.activity.InputBelanjaanActivity;
 import com.progmoblanjutklp1.appmemobelanja.adapter.BelanjaanListAdapter;
 import com.progmoblanjutklp1.appmemobelanja.model.Belanjaan;
+import com.progmoblanjutklp1.appmemobelanja.model.BelanjaanWithBarang;
+import com.progmoblanjutklp1.appmemobelanja.viewmodel.BelanjaViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class DaftarBelanjaanFragment extends Fragment {
 
     private ArrayList<Belanjaan> belanjaanArrayList;
-
+    private String TAG = "DB_DF_BELANJAA";
     private BelanjaanListAdapter adapterBelanjaan;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
-
+    private BelanjaViewModel belanjaViewModel;
     private TextView listKosong;
 
     private String namaBelanjaanKey = "namabelanjaan";
@@ -58,7 +63,11 @@ public class DaftarBelanjaanFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        belanjaViewModel = ViewModelProviders.of(this).get(BelanjaViewModel.class);
+        belanjaanArrayList = new ArrayList<>();
+
     }
 
     @Override
@@ -67,16 +76,12 @@ public class DaftarBelanjaanFragment extends Fragment {
         if (resultCode == Activity.RESULT_OK) { // pake request code 0 untuk input belanjaan baru, 1 untuk edit belanjaan
             if (requestCode == 0) {
                 if (data.hasExtra(namaBelanjaanKey) && data.hasExtra(deskripsiBelanjaanKey) && data.hasExtra(tanggalBelanjaanKey)) {
-                    try {
-                        date = new Date(String.valueOf(simpleFormat.parse(data.getExtras().getString(tanggalBelanjaanKey))));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
 
-                    belanjaanArrayList.add(new Belanjaan(data.getExtras().getString(namaBelanjaanKey), data.getExtras().getString(deskripsiBelanjaanKey), date, date, countId++));
                     adapterBelanjaan.notifyDataSetChanged();
                     Toast.makeText(getContext(), String.format(getString(R.string.belanjaan_insert_toast), data.getExtras().getString(namaBelanjaanKey)), Toast.LENGTH_SHORT).show();
-
+                    getData();
+                    belanjaViewModel.insert(new Belanjaan(data.getExtras().getString(namaBelanjaanKey), data.getExtras().getString(deskripsiBelanjaanKey), data.getExtras().getString(tanggalBelanjaanKey), data.getExtras().getString(tanggalBelanjaanKey)));
+                    adapterBelanjaan.notifyDataSetChanged();
                     // TODO tambahin magic magic room databasenya gan
                     // TODO aduh date ini bikin pala pusing aja, gatau itu udh bener / blm cara buat datenya wkwkwkwkw, formatyg ta pake mm//dd/yyyy
                 }
@@ -89,9 +94,11 @@ public class DaftarBelanjaanFragment extends Fragment {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    belanjaanArrayList.get(data.getExtras().getInt(idBelanjaanKey)).setNamaBelanjaan(data.getExtras().getString(namaBelanjaanKey));
-                    belanjaanArrayList.get(data.getExtras().getInt(idBelanjaanKey)).setDeskripsiBelanjaan(data.getExtras().getString(deskripsiBelanjaanKey));
-                    belanjaanArrayList.get(data.getExtras().getInt(idBelanjaanKey)).setTanggalBelanjaan(date);
+                    Belanjaan belanjaan = new Belanjaan(data.getExtras().getString(namaBelanjaanKey), data.getExtras().getString(deskripsiBelanjaanKey), data.getExtras().getString(tanggalBelanjaanKey), data.getExtras().getString(tanggalBelanjaanKey));
+                    belanjaan.setId(data.getExtras().getInt(idBelanjaanKey));
+                    Log.d(TAG, "onActivityResult: "+data.getExtras().getInt(idBelanjaanKey));
+                    belanjaViewModel.update(belanjaan);
+                    getData();
                     adapterBelanjaan.notifyDataSetChanged();
                     Toast.makeText(getContext(), String.format(getString(R.string.belanjaan_edit_toast), data.getExtras().getString(namaBelanjaanKey)), Toast.LENGTH_SHORT).show();
 
@@ -111,13 +118,15 @@ public class DaftarBelanjaanFragment extends Fragment {
         listKosong = v.findViewById(R.id.empty_view);
         listKosong.setVisibility(View.VISIBLE);
         recyclerView = v.findViewById(R.id.belanjaan_list);
+        adapterBelanjaan = new BelanjaanListAdapter(getActivity(),belanjaViewModel);
+        adapterBelanjaan.notifyDataSetChanged();
+        getData();
 
-        belanjaanArrayList = new ArrayList<>();
-
-        adapterBelanjaan = new BelanjaanListAdapter(getActivity(), belanjaanArrayList);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapterBelanjaan);
+
+
 
         adapterBelanjaan.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -146,5 +155,19 @@ public class DaftarBelanjaanFragment extends Fragment {
             }
         });
         return v;
+    }
+
+    private void getData(){
+        belanjaViewModel.getBelanjas().observe(getViewLifecycleOwner(), new Observer<List<Belanjaan>>() {
+            @Override
+            public void onChanged(List<Belanjaan> belanjaans) {
+                if(belanjaans != null){
+                    belanjaanArrayList.clear();
+                    belanjaanArrayList.addAll(belanjaans);
+                    adapterBelanjaan.setBelanjaanArrayList(belanjaanArrayList);
+                }
+
+            }
+        });
     }
 }

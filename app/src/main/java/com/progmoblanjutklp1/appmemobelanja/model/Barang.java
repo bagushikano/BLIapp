@@ -1,12 +1,27 @@
 package com.progmoblanjutklp1.appmemobelanja.model;
 
-public class Barang {
-    private String namaBarang;
-    private int idBarang;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-    public Barang(String namaBarang, int idBarang) {
+@Entity(tableName="barang")
+public class Barang {
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
+    private String namaBarang;
+
+    public Barang( String namaBarang) {
         this.namaBarang = namaBarang;
-        this.idBarang = idBarang;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNamaBarang() {
@@ -15,13 +30,5 @@ public class Barang {
 
     public void setNamaBarang(String namaBarang) {
         this.namaBarang = namaBarang;
-    }
-
-    public int getIdBarang() {
-        return idBarang;
-    }
-
-    public void setIdBarang(int idBarang) {
-        this.idBarang = idBarang;
     }
 }

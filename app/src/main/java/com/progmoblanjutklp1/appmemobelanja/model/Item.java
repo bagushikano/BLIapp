@@ -1,16 +1,35 @@
 package com.progmoblanjutklp1.appmemobelanja.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName="Item")
 public class Item {
-    private int idBenda;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
+    @ColumnInfo(name = "jumlah")
     private int jumlah;
+
+    @ColumnInfo(name = "keterangan")
     private String keterangan;
+
+    @ColumnInfo(name = "idBelanjaan")
     private int idBelanjaan;
 
-    public Item(int idBenda, int jumlah, String keterangan, int idBelanjaan) {
+    @ColumnInfo(name = "idBarang")
+    private int idBarang;
+
+    public Item( int jumlah, String keterangan, int idBelanjaan, int idBarang) {
         this.idBelanjaan = idBelanjaan;
-        this.idBenda = idBenda;
         this.jumlah = jumlah;
         this.keterangan = keterangan;
+        this.idBarang = idBarang;
+    }
+
+    public Item(){
+
     }
 
     public String getKeterangan() {
@@ -29,12 +48,12 @@ public class Item {
         this.jumlah = jumlah;
     }
 
-    public int getIdBenda() {
-        return idBenda;
+    public int getId() {
+        return id;
     }
 
-    public void setIdBenda(int idBenda) {
-        this.idBenda = idBenda;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getIdBelanjaan() {
@@ -43,5 +62,13 @@ public class Item {
 
     public void setIdBelanjaan(int idBelanjaan) {
         this.idBelanjaan = idBelanjaan;
+    }
+
+    public int getIdBarang() {
+        return idBarang;
+    }
+
+    public void setIdBarang(int idBarang) {
+        this.idBarang = idBarang;
     }
 }

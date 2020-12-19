@@ -20,13 +20,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.progmoblanjutklp1.appmemobelanja.R;
 import com.progmoblanjutklp1.appmemobelanja.model.Barang;
+import com.progmoblanjutklp1.appmemobelanja.viewmodel.BarangViewModel;
 
 import java.util.ArrayList;
 
 public class BarangListAdapter extends RecyclerView.Adapter<BarangListAdapter.ViewHolder> {
     private Context context;
-    private ArrayList<Barang> barangArrayList;
+    private ArrayList<Barang> barangArrayList  = new ArrayList<>();
     private int position;
+    private BarangViewModel barangViewModel;
     /* trash */
 //    BottomSheetDialogFragment editBarang;
 //    private FragmentManager fragmentManager;
@@ -36,10 +38,16 @@ public class BarangListAdapter extends RecyclerView.Adapter<BarangListAdapter.Vi
     AlertDialog barangDialog;
 
 
-    public BarangListAdapter (Context context, ArrayList<Barang> barangArrayList) {
+    public BarangListAdapter (Context context, BarangViewModel barangViewModel) {
         this.context = context;
-        this.barangArrayList = barangArrayList;
+        this.barangViewModel = barangViewModel;
 //        this.fragmentManager = fragmentManager;
+    }
+
+    public void setBarangArrayList(ArrayList<Barang> barangArrayList) {
+        this.barangArrayList.clear();
+        this.barangArrayList.addAll(barangArrayList);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -75,7 +83,7 @@ public class BarangListAdapter extends RecyclerView.Adapter<BarangListAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     position = getAdapterPosition();
-                    Barang barangPosition = barangArrayList.get(position);
+                    final Barang barangPosition = barangArrayList.get(position);
 
                     barangDialogView = LayoutInflater.from(context).inflate(R.layout.dialog_input_barang, null, false);
                     namaBarangInput = barangDialogView.findViewById(R.id.barang_name_text_field);
@@ -88,8 +96,11 @@ public class BarangListAdapter extends RecyclerView.Adapter<BarangListAdapter.Vi
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.dismiss();
-                                    barangArrayList.get(position).setNamaBarang(namaBarangInput.getText().toString());
+                                    Barang barang = new Barang(namaBarangInput.getText().toString());
+                                    barang.setId(barangPosition.getId());
+                                    barangViewModel.update(barang);
                                     notifyDataSetChanged();
+
                                 }
                             })
                             .setNegativeButton(R.string.batal_button, new DialogInterface.OnClickListener() {
@@ -141,7 +152,7 @@ public class BarangListAdapter extends RecyclerView.Adapter<BarangListAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     position = getAdapterPosition();
-                    Barang barangPosition = barangArrayList.get(position);
+                    final Barang barangPosition = barangArrayList.get(position);
 
                     new MaterialAlertDialogBuilder(context)
                             .setTitle("Hapus barang dalam list barang")
@@ -150,7 +161,7 @@ public class BarangListAdapter extends RecyclerView.Adapter<BarangListAdapter.Vi
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.dismiss();
-                                    barangArrayList.remove(position);
+                                    barangViewModel.delete(barangPosition);
                                     notifyItemRemoved(position);
                                     notifyItemRangeChanged(position, barangArrayList.size());
                                 }

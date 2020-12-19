@@ -2,12 +2,15 @@ package com.progmoblanjutklp1.appmemobelanja.activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -18,17 +21,24 @@ import com.progmoblanjutklp1.appmemobelanja.R;
 import com.progmoblanjutklp1.appmemobelanja.adapter.ItemListAdapter;
 import com.progmoblanjutklp1.appmemobelanja.model.Belanjaan;
 import com.progmoblanjutklp1.appmemobelanja.model.Item;
+import com.progmoblanjutklp1.appmemobelanja.model.ItemWithBarang;
+import com.progmoblanjutklp1.appmemobelanja.viewmodel.ItemViewModel;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class DetailBelanjaanActivity extends AppCompatActivity {
-    private ArrayList<Item> itemArrayList;
+    private ArrayList<ItemWithBarang> itemArrayList;
+    private ArrayList<Item> items;
 
     private ItemListAdapter adapterItem;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
+
+    private ItemViewModel itemViewModel;
+    private String TAG = "DETAIL_BELANJAA";
 
     private TextView listKosong;
     private TextView belanjaanNameView;
@@ -58,6 +68,7 @@ public class DetailBelanjaanActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Bundle extras = getIntent().getExtras(); //ini di pake buat nangkep data yang di dapet dari activity yang manggil activity ini
+        itemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
 
         belanjaanName = extras.getString(namaBelanjaanKey);
         belanjaanDesc = extras.getString(deskripsiBelanjaanKey);
@@ -78,6 +89,7 @@ public class DetailBelanjaanActivity extends AppCompatActivity {
 
 
         itemArrayList = new ArrayList<>();
+        items = new ArrayList<>();
         // TODO ambil detail belanjaan/item dari database
         //test ui aja
         /*
@@ -92,11 +104,11 @@ public class DetailBelanjaanActivity extends AppCompatActivity {
         belanjaanDescView.setText(belanjaanDesc);
         belanjaanDateView.setText(belanjaanDate);
         belanjaanJumlahItemView.setText(String.format(getResources().getString(R.string.jumlah_item_detail_belanjaan_card), itemArrayList.size()));
+        adapterItem = new ItemListAdapter(this);
+        adapterItem.notifyDataSetChanged();
+        getData();
 
 
-
-
-        adapterItem = new ItemListAdapter(this, itemArrayList);
         linearLayoutManager = new LinearLayoutManager(this);
         adapterItem.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -128,16 +140,31 @@ public class DetailBelanjaanActivity extends AppCompatActivity {
         });
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) { // pake request code 0 untuk input item baru, 1 untuk edit item
+        if (resultCode == Activity.RESULT_OK) { // pake request code 0 untuk input item baru
             if (requestCode == 0) {
                 // TODO tambah item baru
+                if(data.hasExtra(idBarangKey) && data.hasExtra(keteranganItemKey) && data.hasExtra(jumlahItemkey)){
+                    Item item = new Item(data.getExtras().getInt(jumlahItemkey),data.getExtras().getString(keteranganItemKey),belanjaanId ,data.getExtras().getInt(idBarangKey));
+                    adapterItem.notifyDataSetChanged();
+                    getData();
+                    itemViewModel.insert(item);
+                    adapterItem.notifyDataSetChanged();
+                }
             }
 
-            else if (requestCode == 1) { // pake request code 0 untuk input item baru, 1 untuk edit item
+            else if (requestCode == 1) { //  1 untuk edit item
                 // TODO edit item
+                if(data.hasExtra(idBarangKey) && data.hasExtra(keteranganItemKey) && data.hasExtra(jumlahItemkey)){
+                    Item item = new Item(data.getExtras().getInt(jumlahItemkey),data.getExtras().getString(keteranganItemKey),belanjaanId ,data.getExtras().getInt(idBarangKey));
+                    adapterItem.notifyDataSetChanged();
+                    getData();
+                    itemViewModel.insert(item);
+                    adapterItem.notifyDataSetChanged();
+                }
             }
         }
     }
@@ -146,5 +173,29 @@ public class DetailBelanjaanActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         this.finish();
         return super.onSupportNavigateUp();
+    }
+
+    private void getData(){
+//        Log.d(TAG, "getData: "+belanjaanId);
+
+//        itemViewModel.getItem(belanjaanId).observe(this, new Observer<List<ItemWithBarang>>() {
+//            @Override
+//            public void onChanged(List<ItemWithBarang> itemWithBarangs) {
+//                itemArrayList.clear();
+//                itemArrayList.addAll(itemWithBarangs);
+////                Log.d(TAG, "getData: "+itemArrayList.get(0).items.getId());
+//                adapterItem.setItemArrayList(itemArrayList);
+//            }
+//        });
+
+        itemViewModel.getMyItem(belanjaanId).observe(this, new Observer<List<Item>>() {
+            @Override
+            public void onChanged(List<Item> item) {
+                items.clear();
+                items.addAll(item);
+//                Log.d(TAG, "getData: "+itemArrayList.get(0).items.getId());
+                adapterItem.setItemList(items);
+            }
+        });
     }
 }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -23,11 +24,14 @@ public class InputItemActivity extends AppCompatActivity {
     private TextInputEditText keteranganItem;
     private TextInputEditText jumlahItem;
     private Button tambahItemButton;
+    private String TAG="INPUT_BARANG_BELANJAAN";
 
     private String idItemKey = "iditem";
     private String idBarangKey = "idbarang";
+    private String namaBarang = "namaBarang";
     private String keteranganItemKey = "keteranganitem";
     private String jumlahItemkey = "jumlahitem";
+    private int barangID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +78,9 @@ public class InputItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent item = new Intent();
+                item.putExtra(idBarangKey,barangID);
                 item.putExtra(keteranganItemKey, keteranganItem.getText().toString());
-                item.putExtra(jumlahItemkey, jumlahItem.getText());
+                item.putExtra(jumlahItemkey, Integer.parseInt(jumlahItem.getText().toString()));
                 setResult(RESULT_OK, item);
                 finish();
             }
@@ -89,6 +94,10 @@ public class InputItemActivity extends AppCompatActivity {
             if (requestCode == 0) {
                 if (data.hasExtra(idBarangKey)) {
                     //TODO set barangnya disini ke text field nya
+                    String namabarang = data.getExtras().getString(namaBarang);
+                    barangID = data.getExtras().getInt(idBarangKey);
+                    barangItem.setText(namabarang);
+                    Log.d(TAG, "idBarang Key: "+idBarangKey);
                 }
             }
         }

@@ -25,7 +25,7 @@ public class InputBelanjaanActivity extends AppCompatActivity {
     private TextInputEditText deskripsiBelanjaan;
     private TextInputEditText tanggalBelanjaan;
     private Button tambahBelanjaanButton;
-
+    private String TAG = "DB_DF_BELANJAA";
     private String namaBelanjaanKey = "namabelanjaan";
     private String deskripsiBelanjaanKey = "descbelanjaan";
     private String tanggalBelanjaanKey = "tanggalbelanjaan";
@@ -36,12 +36,13 @@ public class InputBelanjaanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_belanjaan);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
 
         namaBelanjaan = findViewById(R.id.belanjaan_name_text_field);
         deskripsiBelanjaan = findViewById(R.id.belanjaan_deskripsi_text_field);
         tanggalBelanjaan = findViewById(R.id.belanjaan_tanggal_text_field);
         tambahBelanjaanButton = findViewById(R.id.belanjaan_add);
+        int idBelanja;
 
         if (intent.hasExtra(namaBelanjaanKey) && intent.hasExtra(deskripsiBelanjaanKey) &&
                 intent.hasExtra(tanggalBelanjaanKey) && intent.hasExtra(idBelanjaanKey)) {
@@ -104,6 +105,10 @@ public class InputBelanjaanActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent belanjaan = new Intent();
+                if (intent.hasExtra(idBelanjaanKey)){
+                    final int idBelanja = intent.getExtras().getInt(idBelanjaanKey);
+                    belanjaan.putExtra(idBelanjaanKey,idBelanja);
+                }
                 belanjaan.putExtra(namaBelanjaanKey, namaBelanjaan.getText().toString());
                 belanjaan.putExtra(deskripsiBelanjaanKey, deskripsiBelanjaan.getText().toString());
                 belanjaan.putExtra(tanggalBelanjaanKey, tanggalBelanjaan.getText().toString());
