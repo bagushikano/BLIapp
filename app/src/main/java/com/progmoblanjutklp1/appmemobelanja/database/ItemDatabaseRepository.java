@@ -44,6 +44,8 @@ public class ItemDatabaseRepository {
         new deleteItemAsyncTask(belanjaDAO).execute(item);
     }
 
+    public void deleteItemBelanjaan(int idBelanjaan){new deleteItemBelanjaanAsycTask(belanjaDAO,idBelanjaan);}
+
 
     private static class insertItemAsyncTask extends AsyncTask<Item, Void, Void>{
 
@@ -86,6 +88,22 @@ public class ItemDatabaseRepository {
         @Override
         protected Void doInBackground(Item... items) {
             belanjaDAO.deleteItem(items[0]);
+            return null;
+        }
+    }
+
+    private static class deleteItemBelanjaanAsycTask extends AsyncTask<Item, Void, Void>{
+        private BelanjaDAO belanjaDAO;
+        private int idBelanjaan;
+        private deleteItemBelanjaanAsycTask(BelanjaDAO dao, int idBelanjaan){
+            this.belanjaDAO = dao;
+            this.idBelanjaan = idBelanjaan;
+        }
+
+
+        @Override
+        protected Void doInBackground(Item... items) {
+            belanjaDAO.deleteItemBelanjaan(idBelanjaan);
             return null;
         }
     }

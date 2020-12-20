@@ -42,6 +42,7 @@ public class BarangDatabaseRepository {
         new deleteBarangAsyncTask(belanjaDAO).execute(barang);
     }
 
+
     private static class insertBarangAsyncTask extends AsyncTask<Barang, Void, Void>{
 
         private BelanjaDAO belanjaDAO;
