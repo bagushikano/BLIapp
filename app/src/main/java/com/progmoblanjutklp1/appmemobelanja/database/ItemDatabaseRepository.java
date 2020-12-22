@@ -23,7 +23,7 @@ public class ItemDatabaseRepository {
     }
 
     public LiveData<List<ItemWithBarang>> getItems(int idBelanjaan) {
-        items = belanjaDAO.getItems(idBelanjaan);
+        items = belanjaDAO.getItemBarang(idBelanjaan);
         return items;
     }
 

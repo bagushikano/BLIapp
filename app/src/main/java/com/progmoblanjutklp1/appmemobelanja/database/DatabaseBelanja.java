@@ -12,7 +12,7 @@ import com.progmoblanjutklp1.appmemobelanja.model.BelanjaanWithBarang;
 import com.progmoblanjutklp1.appmemobelanja.model.BelanjaanWithItem;
 import com.progmoblanjutklp1.appmemobelanja.model.Item;
 
-@androidx.room.Database(entities = {Barang.class, Belanjaan.class, Item.class},version = 1)
+@androidx.room.Database(entities = {Barang.class, Belanjaan.class, Item.class},version = 2)
 public abstract class DatabaseBelanja extends RoomDatabase {
 
     public abstract BelanjaDAO dao();

@@ -102,10 +102,10 @@ public class MainActivity extends AppCompatActivity {
 //        item.setId(3);
 //        itemViewModel.delete(item);
 
-//        itemViewModel.getItem(3).observe(this, new Observer<List<ItemWithBarang>>() {
+//        itemViewModel.getItem(1).observe(this, new Observer<List<ItemWithBarang>>() {
 //            @Override
 //            public void onChanged(List<ItemWithBarang> itemWithBarangs) {
-//                Log.d(TAG, "onChanged barang: "+itemWithBarangs.get(0).items.getId());
+//                Log.d(TAG, "onChanged barang: "+itemWithBarangs.get(2).getNamaBarang());
 //            }
 //        });
 

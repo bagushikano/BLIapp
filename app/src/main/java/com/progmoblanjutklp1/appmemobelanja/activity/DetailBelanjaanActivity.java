@@ -182,24 +182,24 @@ public class DetailBelanjaanActivity extends AppCompatActivity {
     private void getData(){
 //        Log.d(TAG, "getData: "+belanjaanId);
 
-//        itemViewModel.getItem(belanjaanId).observe(this, new Observer<List<ItemWithBarang>>() {
-//            @Override
-//            public void onChanged(List<ItemWithBarang> itemWithBarangs) {
-//                itemArrayList.clear();
-//                itemArrayList.addAll(itemWithBarangs);
-////                Log.d(TAG, "getData: "+itemArrayList.get(0).items.getId());
-//                adapterItem.setItemArrayList(itemArrayList);
-//            }
-//        });
-
-        itemViewModel.getMyItem(belanjaanId).observe(this, new Observer<List<Item>>() {
+        itemViewModel.getItem(belanjaanId).observe(this, new Observer<List<ItemWithBarang>>() {
             @Override
-            public void onChanged(List<Item> item) {
-                items.clear();
-                items.addAll(item);
+            public void onChanged(List<ItemWithBarang> itemWithBarangs) {
+                itemArrayList.clear();
+                itemArrayList.addAll(itemWithBarangs);
 //                Log.d(TAG, "getData: "+itemArrayList.get(0).items.getId());
-                adapterItem.setItemList(items);
+                adapterItem.setItemArrayList(itemArrayList);
             }
         });
+
+//        itemViewModel.getMyItem(belanjaanId).observe(this, new Observer<List<Item>>() {
+//            @Override
+//            public void onChanged(List<Item> item) {
+//                items.clear();
+//                items.addAll(item);
+////                Log.d(TAG, "getData: "+itemArrayList.get(0).items.getId());
+//                adapterItem.setItemList(items);
+//            }
+//        });
     }
 }

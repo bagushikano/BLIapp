@@ -32,6 +32,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
     private ArrayList<Item> itemList = new ArrayList<>();
     private int position;
     private ItemViewModel itemViewModel;
+    private BarangViewModel barangViewModel;
     private String TAG = "DETAIL_BELANJAA";
     private String idItemKey = "iditem";
     private String idBarangKey = "idbarang";
@@ -47,7 +48,6 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
     public void setItemArrayList(ArrayList<ItemWithBarang> itemArrayList) {
         this.itemArrayList.clear();
         this.itemArrayList.addAll(itemArrayList);
-        Log.d(TAG, "setItemArrayList: "+ Arrays.toString(new Item[]{this.itemArrayList.get(0).items}));
         notifyDataSetChanged();
     }
 
@@ -67,14 +67,14 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        viewHolder.namaItemView.setText(String.valueOf(itemList.get(position).getIdBarang())); // TODO ini gimana sih ntar nyari nama bendanya?, sementara ta tampilin id beda aja
-        viewHolder.jumlahItemView.setText(String.format(viewHolder.itemView.getResources().getString(R.string.jumlah_item_card), itemList.get(position).getJumlah()));
-        viewHolder.keteranganItemView.setText(itemList.get(position).getKeterangan());
+        viewHolder.namaItemView.setText(String.valueOf(itemArrayList.get(position).getNamaBarang())); // TODO ini gimana sih ntar nyari nama bendanya?, sementara ta tampilin id beda aja
+        viewHolder.jumlahItemView.setText(String.format(viewHolder.itemView.getResources().getString(R.string.jumlah_item_card), itemArrayList.get(position).getJumlah()));
+        viewHolder.keteranganItemView.setText(itemArrayList.get(position).getKeterangan());
     }
 
     @Override
     public int getItemCount() {
-        return itemList.size();
+        return itemArrayList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -97,7 +97,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
                 public void onClick(View v) {
                     // TODO edit item nya belum bro
                     position = getAdapterPosition();
-                    Item item = itemList.get(position);
+                    ItemWithBarang item = itemArrayList.get(position);
                     Intent editIntent = new Intent(context, InputItemActivity.class);
                     editIntent.putExtra(idItemKey, item.getId());
                     editIntent.putExtra(keteranganItemKey, item.getKeterangan());
@@ -115,7 +115,9 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
                     // TODO masukkin magic magic room nya gan
                     // TODO ini gimana sih ntar nyari nama bendanya?, sementara ta tampilin id beda aja
                     position = getAdapterPosition();
-                    final Item itemPosition = itemList.get(position);
+                    ItemWithBarang itemWithBarang = itemArrayList.get(position);
+                    final Item itemPosition = new Item(itemWithBarang.getJumlah(),itemWithBarang.getKeterangan(),itemWithBarang.getIdBelanjaan(),itemWithBarang.getIdBarang());
+                    itemPosition.setId(itemWithBarang.getId());
                     new MaterialAlertDialogBuilder(context)
                             .setTitle(R.string.delete_item_dialog_title)
                             .setMessage(String.format(context.getResources().getString(R.string.delete_item_dialog_message) , String.valueOf(itemPosition.getIdBarang())))

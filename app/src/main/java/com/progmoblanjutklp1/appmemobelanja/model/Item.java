@@ -2,9 +2,13 @@ package com.progmoblanjutklp1.appmemobelanja.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName="Item")
+@Entity(foreignKeys = @ForeignKey(entity = Barang.class,
+parentColumns = "id",
+childColumns = "idBarang"))
+
 public class Item {
     @PrimaryKey(autoGenerate = true)
     private int id;
