@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         HomeFragmentAdapter homeViewPagerAdapter = new HomeFragmentAdapter(getSupportFragmentManager());
         homeViewPagerAdapter.addFrag(new DaftarBelanjaanFragment(), "Daftar Belanjaan");
-        homeViewPagerAdapter.addFrag(new DaftarBarangFragment(), "Datar Barang");
+        homeViewPagerAdapter.addFrag(new DaftarBarangFragment(), "Daftar Barang");
         homeViewPager.setAdapter(homeViewPagerAdapter);
 
         homeTabLayout.getTabAt(0).setIcon(tabIcons[0]);

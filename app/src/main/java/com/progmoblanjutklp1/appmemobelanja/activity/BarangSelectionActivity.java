@@ -39,7 +39,6 @@ public class BarangSelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_barang_selection);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //TODO ambil list barang dari database
 
         barangArrayList = new ArrayList<>();
         adapterBarang = new BarangSelectionAdapter(this);
