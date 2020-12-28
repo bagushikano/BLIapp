@@ -80,4 +80,7 @@ public interface BelanjaDAO {
     @Query("Select Item.*, barang.namaBarang from Item inner join barang on barang.id = Item.idBarang where idBelanjaan = :idBelanjaan")
     LiveData<List<ItemWithBarang>> getItemBarang(int idBelanjaan);
 
+    @Query("Delete from Item where idBarang = :idBarang")
+    void deleteItem(int idBarang);
+
 }

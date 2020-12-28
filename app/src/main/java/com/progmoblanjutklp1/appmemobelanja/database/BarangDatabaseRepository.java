@@ -83,6 +83,7 @@ public class BarangDatabaseRepository {
 
         @Override
         protected Void doInBackground(Barang... barangs) {
+            belanjaDAO.deleteItem(barangs[0].getId());
             belanjaDAO.deleteBarang(barangs[0]);
             return null;
         }
