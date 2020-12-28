@@ -10,7 +10,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/belanjaan_name_form"
         android:layout_width="0dp"
-
+        app:errorEnabled="true"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -35,9 +35,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/belanjaan_deskripsi_hint"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/belanjaan_name_form">
@@ -47,9 +48,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
-            android:textColor="@color/white"
             android:imeOptions="actionNext"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -57,13 +58,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:focusable="false"
-        android:longClickable="false"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:cursorVisible="false"
+        android:focusable="false"
         android:focusableInTouchMode="false"
         android:hint="@string/belanjaan_tanggal_hint"
+        android:longClickable="false"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/belanjaan_deskripsi_form">
@@ -72,19 +74,19 @@
             android:id="@+id/belanjaan_tanggal_text_field"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:ems="10"
-            android:textColor="@color/white"
-            android:focusable="true"
             android:cursorVisible="false"
+            android:ems="10"
+            android:focusable="true"
             android:focusableInTouchMode="true"
-            android:inputType="date" />
+            android:inputType="date"
+            android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/belanjaan_add"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        style="?attr/materialButtonOutlinedStyle"
         android:text="@string/belanjaan_add_button"
         app:layout_constraintStart_toStartOf="@+id/belanjaan_tanggal_form"
         app:layout_constraintTop_toBottomOf="@+id/belanjaan_tanggal_form" />

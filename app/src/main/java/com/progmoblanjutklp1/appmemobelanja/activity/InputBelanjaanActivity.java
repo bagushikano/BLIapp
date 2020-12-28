@@ -1,6 +1,7 @@
 package com.progmoblanjutklp1.appmemobelanja.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.PagerAdapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.progmoblanjutklp1.appmemobelanja.R;
 
 import java.text.SimpleDateFormat;
@@ -24,6 +26,9 @@ public class InputBelanjaanActivity extends AppCompatActivity {
     private TextInputEditText namaBelanjaan;
     private TextInputEditText deskripsiBelanjaan;
     private TextInputEditText tanggalBelanjaan;
+    private TextInputLayout namaBelanjaanForm;
+    private TextInputLayout deskripsiBelanjaanForm;
+    private TextInputLayout tanggalBelanjaanForm;
     private Button tambahBelanjaanButton;
     private String TAG = "DB_DF_BELANJAA";
     private String namaBelanjaanKey = "namabelanjaan";
@@ -41,6 +46,9 @@ public class InputBelanjaanActivity extends AppCompatActivity {
         namaBelanjaan = findViewById(R.id.belanjaan_name_text_field);
         deskripsiBelanjaan = findViewById(R.id.belanjaan_deskripsi_text_field);
         tanggalBelanjaan = findViewById(R.id.belanjaan_tanggal_text_field);
+        namaBelanjaanForm = findViewById(R.id.belanjaan_name_form);
+        deskripsiBelanjaanForm = findViewById(R.id.belanjaan_deskripsi_form);
+        tanggalBelanjaanForm = findViewById(R.id.belanjaan_tanggal_form);
         tambahBelanjaanButton = findViewById(R.id.belanjaan_add);
         int idBelanja;
 
@@ -104,16 +112,34 @@ public class InputBelanjaanActivity extends AppCompatActivity {
         tambahBelanjaanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent belanjaan = new Intent();
-                if (intent.hasExtra(idBelanjaanKey)){
-                    final int idBelanja = intent.getExtras().getInt(idBelanjaanKey);
-                    belanjaan.putExtra(idBelanjaanKey,idBelanja);
+                if (namaBelanjaan.getText().toString().length() == 0) {
+                   namaBelanjaanForm.setError("Nama belanjaan tidak boleh kosong");
                 }
-                belanjaan.putExtra(namaBelanjaanKey, namaBelanjaan.getText().toString());
-                belanjaan.putExtra(deskripsiBelanjaanKey, deskripsiBelanjaan.getText().toString());
-                belanjaan.putExtra(tanggalBelanjaanKey, tanggalBelanjaan.getText().toString());
-                setResult(RESULT_OK, belanjaan);
-                finish();
+                else {
+                    namaBelanjaanForm.setError(null);
+                    if (deskripsiBelanjaan.getText().toString().length() == 0) {
+                        deskripsiBelanjaanForm.setError("Deskripsi belanjaan tidak boleh kosong");
+                    }
+                    else {
+                        deskripsiBelanjaanForm.setError(null);
+                        if (tanggalBelanjaan.getText().toString().length() == 0) {
+                            tanggalBelanjaanForm.setError("Tanggal belanjaan tidak boleh kosong");
+                        }
+                        else {
+                            tanggalBelanjaanForm.setError(null);
+                            Intent belanjaan = new Intent();
+                            if (intent.hasExtra(idBelanjaanKey)){
+                                final int idBelanja = intent.getExtras().getInt(idBelanjaanKey);
+                                belanjaan.putExtra(idBelanjaanKey,idBelanja);
+                            }
+                            belanjaan.putExtra(namaBelanjaanKey, namaBelanjaan.getText().toString());
+                            belanjaan.putExtra(deskripsiBelanjaanKey, deskripsiBelanjaan.getText().toString());
+                            belanjaan.putExtra(tanggalBelanjaanKey, tanggalBelanjaan.getText().toString());
+                            setResult(RESULT_OK, belanjaan);
+                            finish();
+                        }
+                    }
+                }
             }
         });
     }

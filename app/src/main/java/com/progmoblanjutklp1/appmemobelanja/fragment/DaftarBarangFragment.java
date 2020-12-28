@@ -21,6 +21,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -114,18 +115,21 @@ public class DaftarBarangFragment extends Fragment {
             public void onClick(View view) {
                 barangDialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_input_barang, null, false);
                 namaBarangInput = barangDialogView.findViewById(R.id.barang_name_text_field);
-
                 barangDialog = new MaterialAlertDialogBuilder(getContext(), android.R.style.Theme_DeviceDefault_Dialog_NoActionBar)
                         .setTitle("Barang baru")
                         .setView(barangDialogView)
                         .setPositiveButton("Tambahkan barang", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                                viewModel.insert(new Barang( namaBarangInput.getText().toString()));
-                                getData();
-                                adapterBarang.notifyDataSetChanged();
-
+                                if (namaBarangInput.getText().toString().length() == 0) {
+                                    Toast.makeText(getActivity(), "Nama barang tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    dialogInterface.dismiss();
+                                    viewModel.insert(new Barang( namaBarangInput.getText().toString()));
+                                    getData();
+                                    adapterBarang.notifyDataSetChanged();
+                                }
                             }
                         })
                         .setNegativeButton("Batal", new DialogInterface.OnClickListener() {

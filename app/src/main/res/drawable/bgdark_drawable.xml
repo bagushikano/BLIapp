@@ -2,6 +2,6 @@
 <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
     android:src="@drawable/bgdark"
     android:tintMode="src_over"
-    android:tint="#C1121212"
+    android:tint="#B9121212"
     android:scaleType="centerCrop">
 </bitmap>

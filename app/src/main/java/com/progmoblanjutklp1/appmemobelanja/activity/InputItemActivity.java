@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.PagerAdapter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.progmoblanjutklp1.appmemobelanja.R;
 import com.progmoblanjutklp1.appmemobelanja.model.Barang;
 import com.progmoblanjutklp1.appmemobelanja.model.Belanjaan;
@@ -27,6 +29,9 @@ public class InputItemActivity extends AppCompatActivity {
 
     private TextInputEditText barangItem;
     private TextInputEditText keteranganItem;
+    private TextInputLayout barangItemForm;
+    private TextInputLayout keteranganItemForm;
+    private TextInputLayout jumlahItemForm;
     private TextInputEditText jumlahItem;
     private Button tambahItemButton;
     private BarangViewModel barangViewModel;
@@ -51,6 +56,9 @@ public class InputItemActivity extends AppCompatActivity {
         keteranganItem = findViewById(R.id.item_desc_text_field);
         jumlahItem = findViewById(R.id.item_jumlah_text_field);
         tambahItemButton = findViewById(R.id.item_add_button);
+        barangItemForm = findViewById(R.id.item_name_form);
+        keteranganItemForm = findViewById(R.id.item_desc_form);
+        jumlahItemForm = findViewById(R.id.item_jumlah_form);
 
         barangViewModel = ViewModelProviders.of(this).get(BarangViewModel.class);
 
@@ -94,15 +102,33 @@ public class InputItemActivity extends AppCompatActivity {
         tambahItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent item = new Intent();
-                if (intent.hasExtra(idItemKey)){
-                    item.putExtra(idItemKey,intent.getExtras().getInt(idItemKey));
+                if (barangItem.getText().toString().length() == 0) {
+                    barangItemForm.setError("Barang tidak boleh kosong");
                 }
-                item.putExtra(idBarangKey,barangID);
-                item.putExtra(keteranganItemKey, keteranganItem.getText().toString());
-                item.putExtra(jumlahItemkey, Integer.parseInt(jumlahItem.getText().toString()));
-                setResult(RESULT_OK, item);
-                finish();
+                else {
+                    barangItemForm.setError(null);
+                    if (keteranganItem.getText().toString().length() == 0) {
+                        keteranganItemForm.setError("Keterangan tidak boleh kosong");
+                    }
+
+                    else {
+                        keteranganItemForm.setError(null);
+                        if (jumlahItem.getText().toString().length() == 0) {
+                            jumlahItemForm.setError("Jumlah tidak boleh kosong");
+                        }
+                        else {
+                            Intent item = new Intent();
+                            if (intent.hasExtra(idItemKey)){
+                                item.putExtra(idItemKey,intent.getExtras().getInt(idItemKey));
+                            }
+                            item.putExtra(idBarangKey,barangID);
+                            item.putExtra(keteranganItemKey, keteranganItem.getText().toString());
+                            item.putExtra(jumlahItemkey, Integer.parseInt(jumlahItem.getText().toString()));
+                            setResult(RESULT_OK, item);
+                            finish();
+                        }
+                    }
+                }
             }
         });
     }

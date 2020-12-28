@@ -51,8 +51,6 @@ public class DaftarBelanjaanFragment extends Fragment {
     private Date date;
 
     private int countId = 0;
-    // TODO klo dh ada db nya hapus aja ini, di model belanjaan nya kan jg gaperlu id,
-    //  cmn sekarang biar bisa test ui saja
 
     ExtendedFloatingActionButton fab;
     View v;
@@ -121,8 +119,6 @@ public class DaftarBelanjaanFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapterBelanjaan);
 
-
-
         adapterBelanjaan.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
@@ -136,7 +132,6 @@ public class DaftarBelanjaanFragment extends Fragment {
                     listKosong.setVisibility(View.GONE);
                 }
             }
-
             @Override
             public void onItemRangeRemoved(int positionStart, int itemCount) { // ganti pake nge cek ke db nya?
                 super.onItemRangeRemoved(positionStart, itemCount);
