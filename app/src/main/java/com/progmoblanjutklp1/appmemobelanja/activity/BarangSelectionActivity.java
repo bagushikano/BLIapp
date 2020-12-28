@@ -65,10 +65,20 @@ public class BarangSelectionActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapterBarang);
 
-        //TODO kalo list kosong show tidak ada barang dalam list barang, silahkan tambahkan barang terlebih dahulu
-        // listKosong.setVisibility(View.VISIBLE);
-
-        recyclerView.setVisibility(View.VISIBLE);
+        adapterBarang.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                if (barangArrayList.size() == 0) {
+                    listKosong.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                }
+                else {
+                    listKosong.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     @Override

@@ -82,8 +82,6 @@ public class DaftarBelanjaanFragment extends Fragment {
                     getData();
                     belanjaViewModel.insert(new Belanjaan(data.getExtras().getString(namaBelanjaanKey), data.getExtras().getString(deskripsiBelanjaanKey), data.getExtras().getString(tanggalBelanjaanKey), data.getExtras().getString(tanggalBelanjaanKey)));
                     adapterBelanjaan.notifyDataSetChanged();
-                    // TODO tambahin magic magic room databasenya gan
-                    // TODO aduh date ini bikin pala pusing aja, gatau itu udh bener / blm cara buat datenya wkwkwkwkw, formatyg ta pake mm//dd/yyyy
                 }
             }
 
@@ -101,9 +99,6 @@ public class DaftarBelanjaanFragment extends Fragment {
                     getData();
                     adapterBelanjaan.notifyDataSetChanged();
                     Toast.makeText(getContext(), String.format(getString(R.string.belanjaan_edit_toast), data.getExtras().getString(namaBelanjaanKey)), Toast.LENGTH_SHORT).show();
-
-                    // TODO tambahin magic magic room databasenya gan
-                    // TODO aduh date ini bikin pala pusing aja, gatau itu udh bener / blm cara buat datenya wkwkwkwkw, formatyg ta pake mm//dd/yyyy
                 }
             }
         }
@@ -132,8 +127,14 @@ public class DaftarBelanjaanFragment extends Fragment {
             @Override
             public void onChanged() {
                 super.onChanged();
-                recyclerView.setVisibility(View.VISIBLE);
-                listKosong.setVisibility(View.GONE);
+                if (adapterBelanjaan.getItemCount() == 0) {
+                    recyclerView.setVisibility(View.GONE);
+                    listKosong.setVisibility(View.VISIBLE);
+                }
+                else {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    listKosong.setVisibility(View.GONE);
+                }
             }
 
             @Override

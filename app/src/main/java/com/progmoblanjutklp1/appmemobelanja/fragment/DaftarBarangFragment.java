@@ -97,13 +97,18 @@ public class DaftarBarangFragment extends Fragment {
             @Override
             public void onChanged() {
                 super.onChanged();
-                recyclerView.setVisibility(View.VISIBLE);
-                listKosong.setVisibility(View.GONE);
+                if (adapterBarang.getItemCount() == 0) {
+                    recyclerView.setVisibility(View.GONE);
+                    listKosong.setVisibility(View.VISIBLE);
+                }
+                else {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    listKosong.setVisibility(View.GONE);
+                }
             }
         });
 
         fab = v.findViewById(R.id.add_barang_fab);
-        // TODO tambahin magic database nya gan
         fab.setOnClickListener(new View.OnClickListener() { //listener untuk fab buttonnya tiap di klik
             @Override
             public void onClick(View view) {
@@ -172,6 +177,7 @@ public class DaftarBarangFragment extends Fragment {
                     barangArrayList.clear();
                     barangArrayList.addAll(barangs);
                     adapterBarang.setBarangArrayList(barangArrayList);
+                    adapterBarang.notifyDataSetChanged();
                 }
             }
         });

@@ -125,8 +125,14 @@ public class DetailBelanjaanActivity extends AppCompatActivity {
             @Override
             public void onChanged() {
                 super.onChanged();
-                recyclerView.setVisibility(View.VISIBLE);
-                listKosong.setVisibility(View.GONE);
+                if (adapterItem.getItemCount() == 0) {
+                    recyclerView.setVisibility(View.GONE);
+                    listKosong.setVisibility(View.VISIBLE);
+                }
+                else {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    listKosong.setVisibility(View.GONE);
+                }
             }
         });
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -188,6 +194,7 @@ public class DetailBelanjaanActivity extends AppCompatActivity {
                 itemArrayList.clear();
                 itemArrayList.addAll(itemWithBarangs);
 //                Log.d(TAG, "getData: "+itemArrayList.get(0).items.getId());
+                belanjaanJumlahItemView.setText(String.format("Jumlah item: %d", itemArrayList.size()));
                 adapterItem.setItemArrayList(itemArrayList);
             }
         });
