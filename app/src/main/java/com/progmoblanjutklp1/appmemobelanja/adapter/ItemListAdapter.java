@@ -120,7 +120,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
                     itemPosition.setId(itemWithBarang.getId());
                     new MaterialAlertDialogBuilder(context, R.style.AlertDialogTheme)
                             .setTitle(R.string.delete_item_dialog_title)
-                            .setMessage(String.format(context.getResources().getString(R.string.delete_item_dialog_message) , String.valueOf(itemPosition.getIdBarang())))
+                            .setMessage("Yakin ingin menghapus item dari list?")
                             .setPositiveButton(R.string.delete_dialog_positive, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {

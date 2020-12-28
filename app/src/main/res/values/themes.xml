@@ -21,7 +21,13 @@
         <item name="android:navigationBarColor" tools:targetApi="l">@color/more_transparent</item>
         <!-- Customize your theme here. -->
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
+<!--        <item name="materialButtonOutlinedStyle">@style/materialOutlinedStyleButton</item>-->
         <item name="titleTextColor">@color/primaryDarkColorLight</item>
+    </style>
+
+    <style name="materialOutlinedStyleButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+<!--        <item name="strokeColor">@color/outlined_button_light</item>-->
+<!--        <item name="android:textColor">@color/primaryLightColorLight</item>-->
     </style>
 
     <style name="ThemeOverlay.ActionBar" parent="">
@@ -29,10 +35,13 @@
     </style>
 
    <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout</item>
+       <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout</item>
+<!--       <item name="boxStrokeColor">@color/light_text_box_selector</item>-->
     </style>
 
     <style name="ThemeOverlay.App.TextInputLayout" parent="">
+        <item name="boxStrokeColor">@color/light_text_box_selector</item>
+        <item name="hintTextColor">@color/white</item>"
         <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
     </style>
 

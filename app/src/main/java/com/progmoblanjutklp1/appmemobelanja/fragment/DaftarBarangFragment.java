@@ -67,23 +67,16 @@ public class DaftarBarangFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
-
         v = inflater.inflate(R.layout.fragment_daftar_barang, container, false);
         listKosong = v.findViewById(R.id.empty_barang_view);
         listKosong.setVisibility(View.VISIBLE);
         recyclerView = v.findViewById(R.id.barang_list_view);
-
-
         adapterBarang = new BarangListAdapter(this.getActivity(), viewModel);
         adapterBarang.notifyDataSetChanged();
         getData();
         linearLayoutManager = new LinearLayoutManager(this.getActivity());
-
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapterBarang);
-
 
         adapterBarang.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
