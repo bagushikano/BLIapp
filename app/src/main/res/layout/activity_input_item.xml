@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent"
     tools:context=".activity.InputItemActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/item_name_form"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
-
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -26,6 +25,7 @@
             android:layout_height="match_parent"
             android:ems="10"
             android:focusable="true"
+            android:textColor="@color/white"
             android:cursorVisible="false"
             android:focusableInTouchMode="true"
             />
@@ -33,7 +33,6 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/item_desc_form"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -49,13 +48,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
+            android:textColor="@color/white"
             android:imeOptions="actionNext"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/item_jumlah_form"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -71,6 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
+            android:textColor="@color/white"
             android:imeOptions="actionSearch"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -80,7 +80,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/primaryDarkColor"
         android:text="Tambahkan item"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/item_jumlah_form"

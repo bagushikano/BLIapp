@@ -16,9 +16,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -69,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().setElevation(0);
+
         TabLayout homeTabLayout = findViewById(R.id.home_tab_bar);
         TabItem belanjaanTab = findViewById(R.id.belanjaan_tab);
         TabItem barangTab = findViewById(R.id.barang_tab);
@@ -91,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
         fragment1 = homeViewPagerAdapter.getItem(0);
         fragment2 = homeViewPagerAdapter.getItem(1);
+
 
 //        Belanjaan belanjaan = new Belanjaan("Besok Pagi","Daya pagi","2-2-2000","2-2-2000");
 //        belanjaViewModel.insert(belanjaan);

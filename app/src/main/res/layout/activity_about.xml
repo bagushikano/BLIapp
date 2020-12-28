@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".activity.AboutActivity">
 
     <TextView
@@ -12,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
         android:text="Tentang BLIapp"
+        android:textColor="@color/white"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="@+id/app_icon_about"
         app:layout_constraintStart_toStartOf="@+id/app_icon_about"
@@ -38,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/app_name"
+        android:textColor="@color/white"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="@+id/app_icon_about"
         app:layout_constraintStart_toStartOf="@+id/app_icon_about"
@@ -49,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="version palceholder"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/app_icon_about"
         app:layout_constraintStart_toStartOf="@+id/app_icon_about"
         app:layout_constraintTop_toBottomOf="@+id/nama_aplikasi" />
@@ -60,6 +64,7 @@
         android:layout_marginTop="45dp"
         android:text="@string/made_by_about_activity"
         android:minLines="2"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/app_icon_about"
         app:layout_constraintStart_toStartOf="@+id/app_icon_about"
         app:layout_constraintTop_toBottomOf="@+id/version_number" />
@@ -69,6 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textColor="@color/white"
         android:text="Gede Ocha Dipa Ananda (1805551017)"
         app:layout_constraintEnd_toEndOf="@+id/app_icon_about"
         app:layout_constraintStart_toStartOf="@+id/app_icon_about"
@@ -79,6 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textColor="@color/white"
         android:text="I Gde Putu Harry Putra Pratama (1805551047)"
         app:layout_constraintEnd_toEndOf="@+id/app_icon_about"
         app:layout_constraintHorizontal_bias="0.498"
@@ -90,6 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textColor="@color/white"
         android:text="Anak Agung Bagus Wiryadika (1805551059)"
         app:layout_constraintEnd_toEndOf="@+id/app_icon_about"
         app:layout_constraintStart_toStartOf="@+id/app_icon_about"

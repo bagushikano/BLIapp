@@ -11,10 +11,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -72,6 +74,7 @@ public class DaftarBarangFragment extends Fragment {
         listKosong.setVisibility(View.VISIBLE);
         recyclerView = v.findViewById(R.id.barang_list_view);
 
+
         adapterBarang = new BarangListAdapter(this.getActivity(), viewModel);
         adapterBarang.notifyDataSetChanged();
         getData();
@@ -79,6 +82,7 @@ public class DaftarBarangFragment extends Fragment {
 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapterBarang);
+
 
         adapterBarang.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -106,7 +110,7 @@ public class DaftarBarangFragment extends Fragment {
                 barangDialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_input_barang, null, false);
                 namaBarangInput = barangDialogView.findViewById(R.id.barang_name_text_field);
 
-                barangDialog = new MaterialAlertDialogBuilder(getContext())
+                barangDialog = new MaterialAlertDialogBuilder(getContext(), android.R.style.Theme_DeviceDefault_Dialog_NoActionBar)
                         .setTitle("Barang baru")
                         .setView(barangDialogView)
                         .setPositiveButton("Tambahkan barang", new DialogInterface.OnClickListener() {
@@ -156,6 +160,7 @@ public class DaftarBarangFragment extends Fragment {
 //                addBarang.show(getChildFragmentManager(), "INPUTBARANG");
             }
         });
+
         return v;
     }
 

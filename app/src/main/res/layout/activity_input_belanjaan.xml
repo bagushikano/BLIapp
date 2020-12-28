@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".activity.InputBelanjaanActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/belanjaan_name_form"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
 
         android:layout_height="wrap_content"
@@ -25,13 +25,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
+            android:textColor="@color/white"
             android:imeOptions="actionNext"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/belanjaan_deskripsi_form"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -47,13 +47,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
+            android:textColor="@color/white"
             android:imeOptions="actionNext"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/belanjaan_tanggal_form"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -73,6 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
+            android:textColor="@color/white"
             android:focusable="true"
             android:cursorVisible="false"
             android:focusableInTouchMode="true"
@@ -84,9 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/primaryDarkColor"
         android:text="@string/belanjaan_add_button"
-        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/belanjaan_tanggal_form"
         app:layout_constraintTop_toBottomOf="@+id/belanjaan_tanggal_form" />
 

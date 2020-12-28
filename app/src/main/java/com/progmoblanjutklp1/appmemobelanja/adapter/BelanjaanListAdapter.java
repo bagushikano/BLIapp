@@ -109,7 +109,7 @@ public class BelanjaanListAdapter extends RecyclerView.Adapter<BelanjaanListAdap
                     //TODO masukkin ntar magic magic db room nya gan
 
 
-                    new MaterialAlertDialogBuilder(context)
+                    new MaterialAlertDialogBuilder(context, R.style.AlertDialogTheme)
                             .setTitle(R.string.delete_belanjaan_dialog_title)
                             .setMessage(String.format(context.getResources().getString(R.string.delete_belanjaan_dialog_message) , belanjaanPosition.getNamaBelanjaan()))
                             .setPositiveButton(R.string.delete_dialog_positive, new DialogInterface.OnClickListener() {

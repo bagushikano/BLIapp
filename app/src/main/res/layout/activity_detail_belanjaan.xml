@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".activity.DetailBelanjaanActivity">
 
     <LinearLayout
@@ -27,6 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="nama belanjaan"
+                android:textColor="@color/primaryTextColor"
                 android:textAppearance="?attr/textAppearanceHeadline6" />
 
             <TextView
@@ -36,7 +38,7 @@
                 android:layout_marginTop="6dp"
                 android:text="desc belanjaan"
                 android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textColor="@color/primaryTextColor"
                 />
 
             <TextView
@@ -46,7 +48,7 @@
                 android:layout_marginTop="6dp"
                 android:text="tanggal belanjaan"
                 android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textColor="@color/primaryTextColor"
                 />
 
             <TextView
@@ -56,7 +58,7 @@
                 android:layout_marginTop="10dp"
                 android:text="total item: "
                 android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorSecondary" />
+                android:textColor="@color/primaryTextColor" />
         </LinearLayout>
     </LinearLayout>
 

@@ -118,7 +118,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
                     ItemWithBarang itemWithBarang = itemArrayList.get(position);
                     final Item itemPosition = new Item(itemWithBarang.getJumlah(),itemWithBarang.getKeterangan(),itemWithBarang.getIdBelanjaan(),itemWithBarang.getIdBarang());
                     itemPosition.setId(itemWithBarang.getId());
-                    new MaterialAlertDialogBuilder(context)
+                    new MaterialAlertDialogBuilder(context, R.style.AlertDialogTheme)
                             .setTitle(R.string.delete_item_dialog_title)
                             .setMessage(String.format(context.getResources().getString(R.string.delete_item_dialog_message) , String.valueOf(itemPosition.getIdBarang())))
                             .setPositiveButton(R.string.delete_dialog_positive, new DialogInterface.OnClickListener() {

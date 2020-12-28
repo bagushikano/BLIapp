@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/bglight"
+    android:tintMode="src_over"
+    android:tint="#7A121212"
+    android:scaleType="centerCrop">
+</bitmap>

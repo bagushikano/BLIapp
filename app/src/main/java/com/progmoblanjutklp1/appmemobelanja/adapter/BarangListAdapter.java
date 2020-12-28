@@ -89,7 +89,7 @@ public class BarangListAdapter extends RecyclerView.Adapter<BarangListAdapter.Vi
                     namaBarangInput = barangDialogView.findViewById(R.id.barang_name_text_field);
                     namaBarangInput.setText(barangPosition.getNamaBarang());
 
-                    barangDialog = new MaterialAlertDialogBuilder(context)
+                    barangDialog = new MaterialAlertDialogBuilder(context, android.R.style.Theme_DeviceDefault_Dialog_NoActionBar)
                             .setTitle(R.string.edit_barang_title)
                             .setView(barangDialogView)
                             .setPositiveButton(R.string.simpan_button, new DialogInterface.OnClickListener() {
@@ -154,7 +154,7 @@ public class BarangListAdapter extends RecyclerView.Adapter<BarangListAdapter.Vi
                     position = getAdapterPosition();
                     final Barang barangPosition = barangArrayList.get(position);
 
-                    new MaterialAlertDialogBuilder(context)
+                    new MaterialAlertDialogBuilder(context, R.style.AlertDialogTheme)
                             .setTitle("Hapus barang dalam list barang")
                             .setMessage(String.format(context.getResources().getString(R.string.delete_barang_dialog_message) , barangPosition.getNamaBarang()))
                             .setPositiveButton(R.string.delete_dialog_positive, new DialogInterface.OnClickListener() {
