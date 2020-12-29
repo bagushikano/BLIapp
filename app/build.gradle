@@ -6,13 +6,13 @@ android {
             storeFile file('D:\\baguskey.jks')
         }
     }
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.progmoblanjutklp1.appmemobelanja"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
