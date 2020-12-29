@@ -1,6 +1,6 @@
 # BLIapp
  
-![iconapp](https://github.com/bgsw0709/WeatherApp/blob/master/github/ic_launcher.png)
+![iconapp](https://github.com/bagushikano/BLIapp/blob/main/app/src/main/res/drawable-v24/icon_splash.png)
 
 # Aplikasi Cuaca by Kelompok 4
 > *Fasy. Fast. Pretty*
