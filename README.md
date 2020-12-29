@@ -1,6 +1,6 @@
 # BLIapp
  
-![iconapp](https://github.com/bagushikano/BLIapp/blob/main/app/src/main/res/drawable-v24/icon_splash.png)
+![iconapp](https://github.com/bagushikano/BLIapp/blob/main/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png)
 
 # Aplikasi Cuaca by Kelompok 4
 > *Fasy. Fast. Pretty*
