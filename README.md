@@ -2,7 +2,7 @@
  
 ![iconapp](https://github.com/bagushikano/BLIapp/blob/main/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png)
 
-# Aplikasi Cuaca by Kelompok 4
+# BLIapp by Kelompok 1
 > *Easy. Fast. Pretty*
 >
 BLIapp adalah sebuah aplikasi aplikasi pencatatan daftar belanjaan untuk membantu pengguna dalam menyelesaikan permasalahan dalam perencanaan belanjaan
